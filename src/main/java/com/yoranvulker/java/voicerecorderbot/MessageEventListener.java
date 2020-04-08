@@ -1,4 +1,4 @@
-package nl.aivd.voicerecorderbot;
+package com.yoranvulker.java.voicerecorderbot;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;

@@ -1,4 +1,4 @@
-package nl.aivd.voicerecorderbot;
+package com.yoranvulker.java.voicerecorderbot;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.entities.User;
 import javax.annotation.Nonnull;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class AivdAudioReceiveHandler implements AudioReceiveHandler {
