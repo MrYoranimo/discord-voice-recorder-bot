@@ -36,6 +36,8 @@ public class MessageEventListener implements EventListener {
         conditionalResponses.put("noord korea", new ArrayList<>());
         conditionalResponses.put("north korea", new ArrayList<>());
         conditionalResponses.put("papa kim", new ArrayList<>());
+        conditionalResponses.put("mi6", new ArrayList<>());
+        conditionalResponses.put("mi7", new ArrayList<>());
 
         ResponseMessage messageEyes = (message) -> ":eyes:";
         conditionalResponses.get("aivd").add(messageEyes);
@@ -80,7 +82,11 @@ public class MessageEventListener implements EventListener {
         ResponseMessage messageNorthKoreaResponse = (message) -> "Kim says hi!, https://www.youtube.com/watch?v=gGclRydi1NY";
         conditionalResponses.get("noord korea").add(messageNorthKoreaResponse);
         conditionalResponses.get("north korea").add(messageNorthKoreaResponse);
-        conditionalResponses.get("papa korea").add(messageNorthKoreaResponse);
+        conditionalResponses.get("papa kim").add(messageNorthKoreaResponse);
+
+        ResponseMessage messageDoYouWantTea = (message) -> "Do you want some tea with that? \uD83C\uDF75";
+        conditionalResponses.get("mi6").add(messageDoYouWantTea);
+        conditionalResponses.get("mi7").add(messageDoYouWantTea);
 
         ResponseMessage messagePermissionDenied = (message) -> "Permission denied";
         conditionalResponses.get("fox it").add(messagePermissionDenied);
@@ -157,8 +163,12 @@ public class MessageEventListener implements EventListener {
                 }
             }
 
+            if (event.getAuthor().isBot()){
+                return;
+            }
+
             // if none of the words set for conditional messages is found in the message,
-            // respond to 1 in 50 messages.
+            // and the message is not from a bot respond to 1 in 50 messages.
             int result = dice.nextInt(50);
             System.out.printf("Dice threw %d%n", result);
 
