@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 
 import javax.annotation.Nonnull;
@@ -13,9 +14,36 @@ import java.util.stream.Collectors;
 
 public class VoiceRecorderBot implements EventListener {
     @Override
-    public void onEvent(@Nonnull GenericEvent event) {
-        if (event instanceof ReadyEvent) {
+    public void onEvent(@Nonnull GenericEvent genericEvent) {
+        if (genericEvent instanceof ReadyEvent) {
             System.out.println("VoiceRecorderBot has been activated.");
+        }
+
+        if (genericEvent instanceof GuildVoiceUpdateEvent) {
+            GuildVoiceUpdateEvent event = (GuildVoiceUpdateEvent) genericEvent;
+
+            if (event.getChannelJoined() != null) {
+                VoiceChannel joinedChannel = event.getChannelJoined();
+                Guild joinedGuild = joinedChannel.getGuild();
+
+                joinedGuild.getAudioManager().openAudioConnection(joinedChannel);
+            }
+
+            if (event.getChannelLeft() != null) {
+                VoiceChannel leftChannel = event.getChannelLeft();
+                Guild leftGuild = leftChannel.getGuild();
+
+                if (leftGuild.getAudioManager().getConnectedChannel() == leftChannel) {
+                    // determine if normal users are left
+                    List<Member> channelMembers = leftChannel.getMembers().stream()
+                            .filter(member -> !member.getUser().isBot())
+                            .collect(Collectors.toList());
+
+                    if (channelMembers.size() == 0) {
+                        leftGuild.getAudioManager().closeAudioConnection();
+                    }
+                }
+            }
         }
     }
 
