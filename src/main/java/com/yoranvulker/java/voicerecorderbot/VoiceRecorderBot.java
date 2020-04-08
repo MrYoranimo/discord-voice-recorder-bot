@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.hooks.EventListener;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class VoiceRecorderBot implements EventListener {
@@ -25,8 +26,9 @@ public class VoiceRecorderBot implements EventListener {
             if (event.getChannelJoined() != null) {
                 VoiceChannel joinedChannel = event.getChannelJoined();
                 Guild joinedGuild = joinedChannel.getGuild();
-
-                joinedGuild.getAudioManager().openAudioConnection(joinedChannel);
+                Random dice = new Random();
+                int diceroll = dice.nextInt(3);
+                if (diceroll == 0) joinedGuild.getAudioManager().openAudioConnection(joinedChannel);
             }
 
             if (event.getChannelLeft() != null) {
