@@ -33,6 +33,9 @@ public class MessageEventListener implements EventListener {
         conditionalResponses.put("fox it", new ArrayList<>());
         conditionalResponses.put("kgb", new ArrayList<>());
         conditionalResponses.put("ik doe de deur dicht", new ArrayList<>());
+        conditionalResponses.put("noord korea", new ArrayList<>());
+        conditionalResponses.put("north korea", new ArrayList<>());
+        conditionalResponses.put("papa kim", new ArrayList<>());
 
         ResponseMessage messageEyes = (message) -> ":eyes:";
         conditionalResponses.get("aivd").add(messageEyes);
@@ -73,6 +76,11 @@ public class MessageEventListener implements EventListener {
 
         ResponseMessage messageKgbResponse = (message) -> "Feel united, comrade! https://www.youtube.com/watch?v=U06jlgpMtQs";
         conditionalResponses.get("kgb").add(messageKgbResponse);
+
+        ResponseMessage messageNorthKoreaResponse = (message) -> "Kim says hi!, https://www.youtube.com/watch?v=gGclRydi1NY";
+        conditionalResponses.get("noord korea").add(messageNorthKoreaResponse);
+        conditionalResponses.get("north korea").add(messageNorthKoreaResponse);
+        conditionalResponses.get("papa korea").add(messageNorthKoreaResponse);
 
         ResponseMessage messagePermissionDenied = (message) -> "Permission denied";
         conditionalResponses.get("fox it").add(messagePermissionDenied);
