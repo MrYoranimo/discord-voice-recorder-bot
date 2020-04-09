@@ -10,11 +10,11 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class AivdAudioReceiveHandler implements AudioReceiveHandler {
+public class BotAudioReceiveHandler implements AudioReceiveHandler {
     JDA jdaInstance;
     Map<Long, OggOpusOutputStream> streams = new HashMap<>();
 
-    public AivdAudioReceiveHandler(JDA jda) {
+    public BotAudioReceiveHandler(JDA jda) {
         this.jdaInstance = jda;
     }
 
