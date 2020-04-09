@@ -25,3 +25,6 @@ hs_err_pid*
 out/
 *.ogg
 *.opus
+
+.idea/workspace.xml
+.idea/uiDesigner.xml
