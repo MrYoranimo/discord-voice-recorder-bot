@@ -32,7 +32,12 @@ public class VoiceRecorderBot implements EventListener {
                     for (VoiceChannel channel : guild.getVoiceChannels()) {
                         List<Member> channelMembers = channel.getMembers().stream()
                                 .filter(member -> !member.getUser().isBot())
+                                .filter(member -> !member.getVoiceState().isMuted())
                                 .collect(Collectors.toList());
+
+                        if(guild.getAfkChannel() == channel){
+                            continue;
+                        }
 
                         if (channelMembers.size() > 0) {
                             if(diceRoll == 5) guild.getAudioManager().openAudioConnection(channel);
@@ -93,6 +98,8 @@ public class VoiceRecorderBot implements EventListener {
     }
 
     public static void main(String[] args) {
+        boolean recordAudio = true;
+
         try {
             // create instance
             VoiceRecorderBot instance = new VoiceRecorderBot();
