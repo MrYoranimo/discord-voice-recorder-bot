@@ -116,7 +116,9 @@ public class VoiceRecorderBot implements EventListener {
 
             System.out.printf("Connected to the following servers: %s%n", jda.getGuilds());
 
-            new TenMinRun(jda).start();
+            if (recordAudio) {
+                new TenMinRun(jda).start();
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

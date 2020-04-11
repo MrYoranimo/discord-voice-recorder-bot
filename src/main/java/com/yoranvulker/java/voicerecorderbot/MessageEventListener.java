@@ -142,7 +142,7 @@ public class MessageEventListener implements EventListener {
         if (event.getAuthor().isBot()) {
             return;
         }
-        
+
         char[] commandFilter = message.getContentStripped().toCharArray();
         if (commandFilter[0] == '?' || commandFilter[0] == '!'){
             return;
