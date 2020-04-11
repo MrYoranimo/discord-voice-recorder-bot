@@ -139,9 +139,19 @@ public class MessageEventListener implements EventListener {
         Message message = event.getMessage();
         System.out.printf("Message received from '%s': '%s'%n", message.getAuthor().getAsTag(), message);
 
-        if (event.getAuthor() == event.getJDA().getSelfUser()) {
+        if (event.getAuthor().isBot()) {
             return;
         }
+        
+        char[] commandFilter = message.getContentStripped().toCharArray();
+        if (commandFilter[0] == '?' || commandFilter[0] == '!'){
+            return;
+        }
+        if (commandFilter[0] == 'p' && commandFilter[1] == '!'){
+            return;
+        }
+
+        System.out.println(commandFilter);
 
         boolean respondToMessage = false;
         Random dice = new Random();
