@@ -151,8 +151,6 @@ public class MessageEventListener implements EventListener {
             return;
         }
 
-        System.out.println(commandFilter);
-
         boolean respondToMessage = false;
         Random dice = new Random();
 

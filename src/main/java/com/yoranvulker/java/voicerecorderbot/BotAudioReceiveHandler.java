@@ -62,10 +62,16 @@ public class BotAudioReceiveHandler implements AudioReceiveHandler {
                 User user = this.jdaInstance.getUserById(userId);
                 String userAsString = user == null ? "" + userId : String.format("%s#%s", user.getName(), user.getDiscriminator());
 
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HHmmss");
+                SimpleDateFormat dateHoursFormat = new SimpleDateFormat("yyyy-MM-dd HHmmss");
+
                 Date date = new Date();
 
-                String filename = String.format("%s-%s.ogg", userAsString, format.format(date));
+                /* TODO: Let's make a different folder for every day
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Example:
+                    String filename = String.format("voiceoutput/" + dateFormat.format(date) + "/%s-%s.ogg", userAsString, dateHoursFormat.format(date)); */
+
+                String filename = String.format("voiceoutput/%s-%s.ogg", userAsString, dateHoursFormat.format(date));
 
                 System.out.printf("Creating file '%s'%n", filename);
                 outputStream = new OggOpusOutputStream(new FileOutputStream(filename));

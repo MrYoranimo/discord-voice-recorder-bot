@@ -25,8 +25,8 @@ public class VoiceRecorderBot implements EventListener {
         public void run() {
             while (true) {
                 Random dice = new Random();
-                int diceRoll = dice.nextInt(8);
-                System.out.println("Thread 10 min run dicerole returns: " + diceRoll);
+                int diceRoll = dice.nextInt(16);
+                System.out.println("Thread 10 min cycle, dicerole returns: " + diceRoll);
 
                 for (Guild guild : this.jda.getGuilds()) {
                     for (VoiceChannel channel : guild.getVoiceChannels()) {
