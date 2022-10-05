@@ -1,16 +1,12 @@
 package com.yoranvulker.java.voicerecorderbot;
 
-import net.dv8tion.jda.api.audio.OpusPacket;
-
 import java.io.Closeable;
 import java.io.Flushable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.zip.CRC32;
 
 public class OggOpusOutputStream implements Closeable, Flushable {
     private static final short[] PAGE_TEMPLATE = new short[] {

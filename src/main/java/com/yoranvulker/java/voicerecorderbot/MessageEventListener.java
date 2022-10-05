@@ -1,7 +1,6 @@
 package com.yoranvulker.java.voicerecorderbot;
 
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
@@ -42,13 +41,15 @@ public class MessageEventListener implements EventListener {
         ResponseMessage messageEyes = (message) -> ":eyes:";
         conditionalResponses.get("aivd").add(messageEyes);
 
-        ResponseMessage messageImWatchingYou = (message) -> String.format("I am watching you, %s", message.getAuthor().getAsMention());
+        ResponseMessage messageImWatchingYou = (message) -> String.format("I am watching you, %s",
+                message.getAuthor().getAsMention());
         conditionalResponses.get("nsa").add(messageImWatchingYou);
         conditionalResponses.get("aivd").add(messageImWatchingYou);
         conditionalResponses.get("gchq").add(messageImWatchingYou);
         responses.add(messageImWatchingYou);
 
-        ResponseMessage messageMindYourDecisions = (message) -> String.format("Mind your decisions, %s", message.getAuthor().getAsMention());
+        ResponseMessage messageMindYourDecisions = (message) -> String.format("Mind your decisions, %s",
+                message.getAuthor().getAsMention());
         conditionalResponses.get("cicada3301").add(messageMindYourDecisions);
         responses.add(messageMindYourDecisions);
 
@@ -60,7 +61,8 @@ public class MessageEventListener implements EventListener {
         conditionalResponses.get("fox it").add(messageBetweenYouAndMe);
         responses.add(messageBetweenYouAndMe);
 
-        ResponseMessage messageLetsNotTellAnybody = (message) -> String.format("Let's not tell anybody I was ever here, %s", message.getAuthor().getAsMention());
+        ResponseMessage messageLetsNotTellAnybody = (message) -> String
+                .format("Let's not tell anybody I was ever here, %s", message.getAuthor().getAsMention());
         responses.add(messageLetsNotTellAnybody);
 
         ResponseMessage messageYesQuestion = (message) -> "Yes?";
@@ -76,10 +78,12 @@ public class MessageEventListener implements EventListener {
         conditionalResponses.get("dod").add(messageRogerThat);
         responses.add(messageRogerThat);
 
-        ResponseMessage messageKgbResponse = (message) -> "Feel united, comrade! https://www.youtube.com/watch?v=U06jlgpMtQs";
+        ResponseMessage messageKgbResponse = (
+                message) -> "Feel united, comrade! https://www.youtube.com/watch?v=U06jlgpMtQs";
         conditionalResponses.get("kgb").add(messageKgbResponse);
 
-        ResponseMessage messageNorthKoreaResponse = (message) -> "Kim says hi!, https://www.youtube.com/watch?v=gGclRydi1NY";
+        ResponseMessage messageNorthKoreaResponse = (
+                message) -> "Kim says hi!, https://www.youtube.com/watch?v=gGclRydi1NY";
         conditionalResponses.get("noord korea").add(messageNorthKoreaResponse);
         conditionalResponses.get("north korea").add(messageNorthKoreaResponse);
         conditionalResponses.get("papa kim").add(messageNorthKoreaResponse);
@@ -113,7 +117,8 @@ public class MessageEventListener implements EventListener {
         conditionalResponses.get("gchq").add(messageDontStopMeNow);
         responses.add(messageDontStopMeNow);
 
-        ResponseMessage messageEagleIsWatchingYou = (message) -> String.format("The Eagle is watching you, %s.", message.getAuthor().getAsMention());
+        ResponseMessage messageEagleIsWatchingYou = (message) -> String.format("The Eagle is watching you, %s.",
+                message.getAuthor().getAsMention());
         conditionalResponses.get("cia").add(messageEagleIsWatchingYou);
         responses.add(messageEagleIsWatchingYou);
 
@@ -139,8 +144,18 @@ public class MessageEventListener implements EventListener {
         Message message = event.getMessage();
         System.out.printf("Message received from '%s': '%s'%n", message.getAuthor().getAsTag(), message);
 
-        if (event.getAuthor() == event.getJDA().getSelfUser()) {
+        if (event.getAuthor().isBot()) {
             return;
+        }
+
+        if (message != null) {
+            char[] commandFilter = message.getContentStripped().toCharArray();
+            if (commandFilter[0] == '?' || commandFilter[0] == '!') {
+                return;
+            }
+            if (commandFilter[0] == 'p' && commandFilter[1] == '!') {
+                return;
+            }
         }
 
         boolean respondToMessage = false;
@@ -150,7 +165,8 @@ public class MessageEventListener implements EventListener {
             respondToMessage = true;
         } else {
             for (String word : conditionalResponses.keySet()) {
-                // respond to this word if it's in the message sent by the user, stop program flow
+                // respond to this word if it's in the message sent by the user, stop program
+                // flow
                 if (message.getContentRaw().toLowerCase().contains(word.toLowerCase())) {
                     // get all possible responses, pick one at random and return that message
                     List<ResponseMessage> responses = conditionalResponses.get(word);
@@ -163,7 +179,7 @@ public class MessageEventListener implements EventListener {
                 }
             }
 
-            if (event.getAuthor().isBot()){
+            if (event.getAuthor().isBot()) {
                 return;
             }
 

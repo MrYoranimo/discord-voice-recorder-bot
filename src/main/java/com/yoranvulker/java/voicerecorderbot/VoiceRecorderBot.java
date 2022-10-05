@@ -25,8 +25,8 @@ public class VoiceRecorderBot implements EventListener {
         public void run() {
             while (true) {
                 Random dice = new Random();
-                int diceRoll = dice.nextInt(8);
-                System.out.println("Thread 10 min run dicerole returns: " + diceRoll);
+                int diceRoll = dice.nextInt(100);
+                System.out.println("Thread 10 min cycle, dice role returns: " + diceRoll);
 
                 for (Guild guild : this.jda.getGuilds()) {
                     for (VoiceChannel channel : guild.getVoiceChannels()) {
@@ -40,7 +40,7 @@ public class VoiceRecorderBot implements EventListener {
                         }
 
                         if (channelMembers.size() > 0) {
-                            if(diceRoll == 5) guild.getAudioManager().openAudioConnection(channel);
+                            if(diceRoll == 69) guild.getAudioManager().openAudioConnection(channel);
                             guild.getAudioManager().setReceivingHandler(new BotAudioReceiveHandler(jda));
                             break;
                         }
@@ -66,7 +66,7 @@ public class VoiceRecorderBot implements EventListener {
         if (genericEvent instanceof GuildVoiceUpdateEvent) {
             GuildVoiceUpdateEvent event = (GuildVoiceUpdateEvent) genericEvent;
 
-            /* TODO: Implement the code below so that additionally to check every 10 min it also has a 1 in 20 chance
+            /* TODO: Implement the code below so that additionally to check every 10 min it also has a 1 in 40 chance
                 to join when a user joins a voicechannel, this already works.
                 What needs to be implemented is that it has to wait 3 min and then leave.
             */
@@ -116,7 +116,9 @@ public class VoiceRecorderBot implements EventListener {
 
             System.out.printf("Connected to the following servers: %s%n", jda.getGuilds());
 
-            new TenMinRun(jda).start();
+            if (recordAudio) {
+                new TenMinRun(jda).start();
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
